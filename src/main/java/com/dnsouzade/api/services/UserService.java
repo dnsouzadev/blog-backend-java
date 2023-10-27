@@ -39,6 +39,13 @@ public class UserService {
     }
 
     public User update(User obj) {
+        User newObj = repo.findById(obj.getId()).get();
+        updateData(newObj, obj);
+        return repo.save(newObj);
+    }
 
+    private void updateData(User newObj, User obj) {
+        newObj.setName(obj.getName());
+        newObj.setEmail(obj.getEmail());
     }
 }
