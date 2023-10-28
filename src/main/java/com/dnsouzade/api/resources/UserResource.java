@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.dnsouzade.api.domain.Post;
 import com.dnsouzade.api.dto.UserDTO;
 import com.dnsouzade.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +57,11 @@ public class UserResource {
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.noContent().build();
 	}
+
+	@GetMapping("/{id}/posts")
+	public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+		User obj = service.findById(id);
+		return ResponseEntity.ok().body(obj.getPosts());
+	}
+
 }
