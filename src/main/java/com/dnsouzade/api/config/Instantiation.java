@@ -3,6 +3,7 @@ package com.dnsouzade.api.config;
 import com.dnsouzade.api.domain.Post;
 import com.dnsouzade.api.domain.User;
 import com.dnsouzade.api.dto.AuthorDTO;
+import com.dnsouzade.api.dto.CommentDTO;
 import com.dnsouzade.api.repository.PostRepository;
 import com.dnsouzade.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,13 @@ public class Instantiation implements CommandLineRunner {
         Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu Viagem", "Vou viajar para São Paulo. Abraços!",
                 new AuthorDTO(maria));
         Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz hoje!", new AuthorDTO(maria));
+
+        CommentDTO c1 = new CommentDTO("Boa viagem mano!", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Aproveite!", sdf.parse("22/03/2018"), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("23/03/2018"), new AuthorDTO(alex));
+
+        post1.getComments().addAll(Arrays.asList(c1,c2));
+        post2.getComments().add(c3);
 
         postRepository.deleteAll();
         postRepository.saveAll(Arrays.asList(post1, post2));

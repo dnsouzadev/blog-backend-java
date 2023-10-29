@@ -1,12 +1,15 @@
 package com.dnsouzade.api.domain;
 
 import com.dnsouzade.api.dto.AuthorDTO;
+import com.dnsouzade.api.dto.CommentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Document
@@ -20,6 +23,8 @@ public class Post implements Serializable {
     private String title;
     private String body;
     private AuthorDTO author;
+
+    private List<CommentDTO> comments = new ArrayList<>();
 
     public AuthorDTO getAuthor() {
         return author;
@@ -82,5 +87,13 @@ public class Post implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<CommentDTO> comments) {
+        this.comments = comments;
     }
 }
